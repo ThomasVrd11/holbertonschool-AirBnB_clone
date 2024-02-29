@@ -25,3 +25,81 @@ Each method performs its function like creating or showing model instances, and 
 The interpreter uses an instance of FileStorage to persist data across sessions, indicated by calls to 'save' and mainpulations of storage.all().
 
 #################################################################################
+
+BaseModel.py              ###################################################
+
+        __init__(self, *args, **kwargs) initializes a new BaseModel instance
+initializes instance with unique ID, creation, and update timestamps. If provided, kwargs recreate an instance from a dictionary representation, excluding '__class__' 
+while converting date strings back to datetime objects.
+        __str__(self) gives string representation of the BaseModel instance
+returns a formatted string including the class name, instance ID, and its dictionary.
+        save(self) updates 'updated_at' timestamp and saves the instance
+marks the current time as the update timestamp and signals the storage engine to save the current state.
+        to_dict(self) returns a dictionary containing all keys/values of the instance
+creates a dictionary copy of the instance’s state, including the class name for serialization, and formats datetime objects to ISO format strings.
+
+########        Execution + how it works          ########
+
+The BaseModel class serves as a foundation for all other model classes, sharing functionalities.
+
+On instantiation, BaseModel assigns a unique UUID, records creation, and update times. It can also reconstruct an instance from a saved dictionary.
+
+The __str__ method provides a human-readable representation of the model, for debugging and logging.
+
+The save method signal the storage engine to update the stored state of the instance to be able to reuse the instance later.
+
+to_dict convert the instance state into a dictionary format, ready for saving to a file.
+
+The integration with models.storage allows instances of BaseModel (and its subclasses) to be automatically registered for persistence, linking the model layer with the storage engine.
+
+#################################################################################
+
+FileStorage.py              ###################################################
+
+        __init__(self) initializes the FileStorage system
+sets up a private file path to the JSON file and initializes an empty dictionary to hold all objects.
+        all(self) returns the dictionary of all saved objects
+provides access to all stored objects, allowing for retrieval of any object based on its unique class name and id combination.
+        new(self, obj) adds a new object to the storage dictionary
+generates a unique key combining the object's class name and id, then stores the object under this key in the __objects dictionary, facilitating quick access.
+        save(self) serializes the __objects dictionary to JSON format
+iterates over all stored objects, converting them to dictionaries using their to_dict method, then writes this serialized form to the designated JSON file,
+ ensuring the persistence of the object state.
+        reload(self) deserializes the JSON file back into __objects
+checks for the existence of the JSON file and, if found, reads it, deserializing the object dictionaries stored within.
+It then recreates each object from its class name (using eval to interpret the class name as a reference to the actual class) and restores these objects into the __objects dictionary.
+
+########        Execution + how it works          ########
+
+FileStorage acts as the persistence layer of the application, managing the serialization and deserialization of model instances to and from a JSON file.
+
+Upon initialization, it prepares to store model instances in a dictionary and to save or load these instances to a file named "file.json".
+
+The all method allows for retrieval of all stored instances, useful for operations that need to operate on or display information about all records.
+
+The new method registers a new instance in the storage system.
+
+The save method is key to persistence, translating the in-memory objects into a storable format in a JSON file, ensuring that the state of the application can be saved between executions.
+
+The reload method allow the application to restore previously stored states upon restart, by recreating model instances from the saved JSON file.
+This process involves identifying the class of each stored object and using its stored state to recreate the object.
+
+#################################################################################
+
+models/__init__.py              ###################################################
+
+        Import FileStorage class and instantiate storage
+This script initializes the storage system by importing the FileStorage class from the models.engine.file_storage module.
+It then creates an instance of FileStorage, storing it in the global variable `storage`.
+
+        Reload storage
+The `storage.reload()` call attempts to deserialize objects from the JSON file (if it exists) back into the application's memory.
+Restoring the state of the application's data from a previous session, making the data immediately available upon startup.
+
+########        Execution + how it works          ########
+
+This script serves as the entry point for setting up the storage system of the application. It ensures that whenever the models package is imported, a storage system is instantiated and prepared to handle data persistence tasks.
+Upon the importation of the models package, the FileStorage class is imported from the file_storage module, and an instance of this class is created and assigned to the variable `storage`. This instance becomes the central point for managing data serialization and deserialization throughout the application.
+The call to `storage.reload()` checks for the existence of a previously saved JSON file (`file.json`) and loads its content back into the application. This process transforms the JSON file's data back into Python objects, effectively restoring the state of the application's data as it was in the last session.
+
+#################################################################################
