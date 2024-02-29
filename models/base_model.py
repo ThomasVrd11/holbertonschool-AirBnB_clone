@@ -21,12 +21,15 @@ class BaseModel:
         self.updated_at = datetime.datetime.now()
 
     def __str__(self):
+        """String representation of the instance"""
         return ("[{}] ({}) {}".format(__class__.__name__, self.id, self.__dict__))
 
     def save(self):
+        """updates the attribute "updated_at" with current datetime"""
         self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
+        """Create and return a dictionnary containing values of the instance"""
         dict_copy = self.__dict__.copy()
         dict_copy['__class__'] = self.__class__.__name__
         dict_copy['created_at'] = dict_copy['created_at'].isoformat()
