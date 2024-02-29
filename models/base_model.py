@@ -15,10 +15,21 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initiates a new BaseModel instance
         args: non-keyworded arguments
-        kwargs: keyworded arguments"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        kwargs: keyworded arguments
+        use kwargs to recreate an instance based on a
+        dictionnary representation
+        """
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.datetime.fromisoformat(value)
+                if key == '__class__':
+                    continue
+                setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """String representation of the instance"""
