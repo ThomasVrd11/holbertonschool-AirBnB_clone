@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This is the console module.
-This module contains the HBNBCommand class that is the entry point of the command interpreter.
+This module contains the HBNBCommand class that is the
+entry point of the command interpreter.
 """
 import cmd
 import sys
@@ -37,20 +38,22 @@ class HBNBCommand(cmd.Cmd):
         exit()
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id"""
+        """Creates a new instance of BaseModel, saves it (to the JSON file)
+        and prints the id"""
         if not arg:
             print("** class name missing **")
             return
         if arg not in self.class_listing:
             print("** class doesn't exist **")
             return
-        
+
         new_instance = eval(arg)()
         new_instance.save()
         print(new_instance.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string representation of an instance based
+        on the class name and id"""
         token = arg.split()
         dict_objs = storage.all()
 
@@ -67,9 +70,9 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print(dict_objs[instance_key])
 
-
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id (save the change into the JSON file)"""
+        """Deletes an instance based on the class name and id
+        (save the change into the JSON file)"""
         token = arg.split()
         dict_objs = storage.all()
 
@@ -88,16 +91,17 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class name
+        """Prints all string representation of all instances based or not
+        on the class name
         it can be used with or without class name"""
         dict_objs = storage.all()
         list_objs = []
-        
+
         if len(arg) == 0:
             for keys, values in dict_objs.items():
                 list_objs.append(str(values))
             print(list_objs)
-            
+
         elif arg in self.class_listing:
             for keys, values in dict_objs.items():
                 if values.__class__.__name__ == arg:
@@ -106,12 +110,13 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             print("** class doesn't exist **")
-            
+
     def do_update(self, arg):
-        """Updates an instance based on the class name and id by adding or updating attribute"""
+        """Updates an instance based on the class name and id by adding
+        or updating attribute"""
         token = arg.split(" ")
         dict_objs = storage.all()
-        
+
         if len(arg) == 0:
             print("** class name missing **")
 
@@ -136,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(dict_objs[instance_key], token[2], token[3])
                 storage.save()
-                
+
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

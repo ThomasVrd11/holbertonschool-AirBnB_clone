@@ -84,4 +84,3 @@ python3 -m unittest discover tests
 This project is developed by Thomas Viard and Nicolas Taillepierre.
 
 *Project developed as part of the curriculum at Holberton School.*
-```

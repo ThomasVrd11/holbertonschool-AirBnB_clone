@@ -2,6 +2,7 @@
 """Defines the Place class that inherits from BaseModel."""
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """It is the place class that inherits from BaseModel.
     It has the following attributes:
@@ -15,9 +16,9 @@ class Place(BaseModel):
     price_by_night: integer - 0
     latitude: float - 0.0
     longitude: float - 0.0
-    amenity_ids: list of string - empty list: it will be the list of Amenity.id later
+    amenity_ids: list of string - empty list: it will be the list of Amenity.id
     """
-    
+
     city_id = ""
     user_id = ""
     name = ""
@@ -29,4 +30,3 @@ class Place(BaseModel):
     latitude = 0.0
     longitude = 0.0
     amenity_ids = []
-    
