@@ -16,9 +16,10 @@ class FileStorage:
         self.__objects[key] = obj
 
     def save(self):
-        with open(self.__filename, "w") as newfile:
-            file = json.dumps(self.__objects)
-            newfile.write(file)
+        obj_dict = {obj_id: obj.to_dict() for obj_id, obj in self.__objects.items()}
+        with open(self.__file_path, "w") as newfile:
+            json.dump(obj_dict, newfile)
+
 
     def reload(self):
         if os.path.exists(self.__file_path):
