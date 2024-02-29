@@ -24,4 +24,8 @@ class FileStorage:
     def reload(self):
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r") as file:
-                self.__objects = json.load(file)
+                obj_dicts = json.load(file)
+                for obj in obj_dicts.values():
+                    class_name = obj["__class__"]
+                    del obj["__class__"]
+                    self.new(eval(class_name)(**obj))
