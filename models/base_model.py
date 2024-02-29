@@ -2,7 +2,7 @@
 """Defines the Basemodel class that all other classes will inherit from"""
 import datetime
 import uuid
-import models
+from models import storage
 
 
 class BaseModel:
@@ -30,14 +30,17 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """String representation of the instance"""
-        return ("[{}] ({}) {}".format(__class__.__name__, self.id, self.__dict__))
+        return ("[{}] ({}) {}".format(__class__.__name__,
+                                      self.id, self.__dict__))
 
     def save(self):
         """updates the attribute "updated_at" with current datetime"""
         self.updated_at = datetime.datetime.now()
+        storage.save(self)
 
     def to_dict(self):
         """Create and return a dictionnary containing values of the instance"""
