@@ -1,0 +1,27 @@
+Console.py
+
+        do_quit(self, arg) brings command 'quit'
+exits the interpreter when the quit command is entered, we call exit.
+        do_EOF(self, arg) brings EOF (usually CTRL + D)
+also exits the console, prints a new line for clean exit and then exit()
+        do_create(self, arg) creates <ClassName> 
+creates a new instance of the specified class, saves it in a file via 'save' method and prints instance id, handle error by checking name presence and validity
+        do_show(self, args) brings command show <ClassName> <id> 
+prints the string recommandation of an instance based on class name and id, checks for name presence, validity, id presence and if the instance exists
+        do_destroy(self, arg) commande destroy <ClassName> <id> 
+deletes an instance based on clas name and id, then save the change to the file
+        do_all(self, arg) command all or all <ClassName>
+prints all instances of a given class, or all instances of every class is none provided, we iterate through a dictionary of all saved objects, filtering by class name
+        do_update(self, arg) command update <ClassName> <id> <attribute name> <attribute value> 
+updates an instance based on class name and id by adding or updating an attribute (key-value) checks for class name presence, id presence, attribute name and value presence
+
+########        Execution + how it works          ########
+
+The script checks if its the main program being executed, starts cmdloop which listens for commands and dispatches to the appropriate do_command method
+
+When u run the script, it presents a prompt hbnb where u can type commands
+typing a command and pressing enter invokes the corresponding command method in the HBNBCommand class.
+Each method performs its function like creating or showing model instances, and provides feedback based on the action success or failure.
+The interpreter uses an instance of FileStorage to persist data across sessions, indicated by calls to 'save' and mainpulations of storage.all().
+
+#################################################################################
