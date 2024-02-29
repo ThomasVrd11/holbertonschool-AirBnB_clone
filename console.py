@@ -14,13 +14,36 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class that is the entry point of the command interpreter."""
     prompt = '(hbnb)'
-    class_list = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+    class_listing = [
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Amenity",
+        "Place",
+        "Review"]
 
-    def do_quit(self, args):
+    def do_quit(self, arg):
         """Quit command to exit the program"""
-        return True
-    
-    
+        exit()
+
+    def do_EOF(self, arg):
+        """EOF command to exit the program"""
+        print()
+        exit()
+
+    def do_create(self, arg):
+        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id"""
+        if not arg:
+            print("** class name missing **")
+            return
+        if arg not in self.class_listing:
+            print("** class doesn't exist **")
+            return
+        
+        new_instance = eval(arg)()
+        
