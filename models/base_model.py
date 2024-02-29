@@ -10,3 +10,10 @@ class BaseModel:
         id (str): unique id for each instance
         created_at (datetime): time instance was created
         updated_at (datetime): time instance was updated"""
+    
+    def __init__(self, *args, **kwargs):
+        """Initiates a new BaseModel instance
+        args: non-keyworded arguments
+        kwargs: keyworded arguments"""
+
+        
