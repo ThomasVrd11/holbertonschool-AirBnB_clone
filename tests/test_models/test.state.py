@@ -15,15 +15,14 @@ class Test_state(unittest.TestCase):
         self.assertTrue(issubclass(State, BaseModel), True)
         """Tests if class State is used by state"""
         self.assertIsInstance(state, State)
-        
+
         def test_initialisation(self):
             """Tests if attributes are strings"""
             state = State()
             self.assertIsInstance(state.name, str)
             # * test if the attributes are empty strings
-            
+
             if __name__ == '__main__':
                 unittest.main()
                 # * It will run the test if the module is run directly
                 # * It will not run if the module is imported
-                

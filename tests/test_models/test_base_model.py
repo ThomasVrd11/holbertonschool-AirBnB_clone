@@ -36,19 +36,21 @@ class TestBaseModel(unittest.TestCase):
     def test_BaseModel_str(self):
         actual_str = self.basemodel.__str__()
         expected_start = "[BaseModel] ({})".format(self.basemodel.id)
-        #check if str has expected start
+        # check if str has expected start
         self.assertTrue(actual_str.startswith(expected_start))
-        #check if str include the key attributes
+        # check if str include the key attributes
         self.assertIn('id', actual_str)
         self.assertIn('created_at', actual_str)
         self.assertIn('updated_at', actual_str)
         basemodel2 = BaseModel()
-        expected_format = "[BaseModel] ({}) {}".format(basemodel2.id, basemodel2.__dict__)
+        expected_format = "[BaseModel] ({}) {}".format(basemodel2.id,
+                                                       basemodel2.__dict__)
         self.assertEqual(basemodel2.__str__(), expected_format)
 
     def test_BaseModel_init_with_kwargs(self):
         time = datetime.now()
-        basemodel = BaseModel(id="1234", created_at=time.isoformat(), updated_at=time.isoformat())
+        basemodel = BaseModel(id="1234", created_at=time.isoformat(),
+                              updated_at=time.isoformat())
         self.assertEqual(basemodel.id, "1234")
         self.assertEqual(basemodel.created_at, time)
         self.assertEqual(basemodel.updated_at, time)
