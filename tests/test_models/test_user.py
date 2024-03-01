@@ -18,7 +18,7 @@ class Test_user(unittest.TestCase):
     def test_initialization(self):
         """tests if attributes"""
         user = User()
-        self.assertisInstance(user.email, str)
+        self.assertIsInstance(user.email, str)
         self.assertIsInstance(user.password, str)
         self.assertIsInstance(user.first_name, str)
         self.assertIsInstance(user.last_name, str)
