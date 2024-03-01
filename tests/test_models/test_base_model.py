@@ -2,18 +2,10 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 import os
-import sys
-from io import StringIO
 
 
 class TestBaseModel(unittest.TestCase):
     basemodel = BaseModel()
-
-    def setUp(self):
-        self.held, sys.stdout = sys.stdout, StringIO()
-
-    def tearDown(self):
-        sys.stdout = self.held
 
     def test_createBaseModel(self):
         self.assertIsInstance(self.basemodel, BaseModel)
@@ -42,5 +34,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(basemodel2.id, self.basemodel.id)
 
     def test_BaseModel_str(self):
-        """wip"""
-        self.assertTrue(self.basemodel.id)
+        actual_str = self.basemodel.__str__()
+        expected_start = "[BaseModel] ({})".format(self.basemodel.id)
+        #check if str has expected start
+        self.assertTrue(actual_str.startswith(expected_start))
+        #check if str include the key attributes
+        self.assertIn('id', actual_str)
+        self.assertIn('created_at', actual_str)
+        self.assertIn('updated_at', actual_str)
