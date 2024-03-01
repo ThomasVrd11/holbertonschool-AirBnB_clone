@@ -84,5 +84,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn('color', basemodel_dict)
         self.assertEqual(basemodel_dict['color'], "red")
 
+
 if __name__ == "__main__":
     unittest.main()
