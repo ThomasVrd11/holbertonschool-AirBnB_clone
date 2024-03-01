@@ -2,10 +2,18 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 import os
+import sys
+from io import StringIO
 
 
 class TestBaseModel(unittest.TestCase):
     basemodel = BaseModel()
+
+    def setUp(self):
+        self.held, sys.stdout = sys.stdout, StringIO()
+
+    def tearDown(self):
+        sys.stdout = self.held
 
     def test_createBaseModel(self):
         self.assertIsInstance(self.basemodel, BaseModel)
@@ -32,3 +40,7 @@ class TestBaseModel(unittest.TestCase):
         basemodel2 = BaseModel(**dictionnary)
         self.assertIsInstance(basemodel2, BaseModel)
         self.assertTrue(basemodel2.id, self.basemodel.id)
+
+    def test_BaseModel_str(self):
+        """wip"""
+        self.assertTrue(self.basemodel.id)
