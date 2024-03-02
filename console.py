@@ -54,8 +54,10 @@ class HBNBCommand(cmd.Cmd):
 
     funct_listing = ['create', 'show', 'update', 'all', 'destroy']
 
-    def parsemethod(self, arg):
-        """parses command input"""
+    def precmd(self, arg):
+        """parses command input
+        apparently forced to call it precmd by cmd module
+        it is called before the command is executed"""
         if '.' in arg and '(' in arg and ')' in arg:
             my_class = arg.split('.')
             my_func = my_class[1].split('(')
