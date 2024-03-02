@@ -1,6 +1,32 @@
 #!/usr/bin/python3
 """
 The entry point of the command interpreter.
+Very simple console for the AirBnB project.
+what can be done with this console:
+    - Create a new object (ex: a new User or a new Place)
+    - Retrieve an object from a file, a database etc
+    - Do operations on objects (count, compute stats, etc)
+    - Update attributes of an object
+    - Destroy an object
+    - Show all objects, or show all instances of a class
+    - Show an object
+    - Update an object
+    - Destroy an object
+    - Quit the console
+    - EOF (End Of File) to exit the program
+Usage:
+    - Run the console and type help to see the commands
+    - Run the console and type <class name>.<command>(<parameters>)
+    - Run the console and type <class name>.<command>(<id>, <attribute>, <value>)
+    - Run the console and type <class name>.<command>(<id>)
+    - Run the console and type <class name>.<command>()
+    - Run the console and type <command>()
+    - Run the console and type <command>(<id>)
+    - Run the console and type <command>(<id>, <attribute>, <value>)
+    - Run the console and type <command>(<class name>)
+    - Run the console and type <command>(<class name>, <id>)
+    - Run the console and type <command>(<class name>, <id>, <attribute>, <value>)
+    - Run the console and type <command>(<class name>, <id>, <attribute>)
 """
 
 from models import storage
