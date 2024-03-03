@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Defines the tests for the BaseModel class."""
 
+from uuid import UUID
+import json
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
