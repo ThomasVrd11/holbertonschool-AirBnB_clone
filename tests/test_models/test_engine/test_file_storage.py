@@ -3,6 +3,7 @@
 
 import unittest
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 import os
 import json
@@ -64,6 +65,18 @@ class TestFileStorage(unittest.TestCase):
         self.storage.reload()
         all_objs = self.storage.all()
         self.assertIn("BaseModel.{}".format(new_obj.id), all_objs)
+
+    def test_saving_and_reloading_multiple_objects(self):
+        base_model_instance = BaseModel()
+        user_instance = User(email="user@example.com", password="password")
+        print(user_instance.to_dict())
+        self.storage.new(base_model_instance)
+        self.storage.new(user_instance)
+        self.storage.save()
+        self.storage.reload()
+        self.assertIn("BaseModel.{}".format(base_model_instance.id), self.storage.all())
+        self.assertIn("User.{}".format(user_instance.id), self.storage.all())
+
 
 
 
