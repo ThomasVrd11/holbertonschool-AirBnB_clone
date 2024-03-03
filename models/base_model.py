@@ -19,6 +19,13 @@ class BaseModel:
         use kwargs to recreate an instance based on a
         dictionnary representation
         """
+        if 'id' not in kwargs:
+            self.id = str(uuid.uuid4())
+        else:
+            self.id = kwargs['id']
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
+
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -30,9 +37,6 @@ class BaseModel:
                 if key != '__class__':
                     setattr(self, key, value)
         else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
             models.storage.new(self)
 
     def __str__(self):
