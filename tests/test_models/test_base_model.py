@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 """Defines the tests for the BaseModel class."""
 
+import json
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 import os
+import time
 
 
 class TestBaseModel(unittest.TestCase):
@@ -15,6 +17,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_has_uuid(self):
         self.assertTrue(self.basemodel.id)
+        self.assertIsInstance(self.basemodel.id, str)
 
     def test_was_created_at(self):
         self.assertIsInstance(self.basemodel.created_at, datetime)
@@ -86,6 +89,23 @@ class TestBaseModel(unittest.TestCase):
         basemodel_dict = basemodel.to_dict()
         self.assertIn('color', basemodel_dict)
         self.assertEqual(basemodel_dict['color'], "red")
+        del basemodel.color
+        self.assertFalse(hasattr(basemodel, 'color'))
+
+    def test_BaseModel_json_serialization_deserialization(self):
+        self.basemodel.save()
+        with open("file.json", "r") as f:
+            objs = json.load(f)
+        self.assertIn(self.basemodel.__class__.__name__ + "." + self.basemodel.id, objs)
+        obj_data = objs[self.basemodel.__class__.__name__ + "." + self.basemodel.id]
+        new_instance = BaseModel(**obj_data)
+        self.assertEqual(self.basemodel.to_dict(), new_instance.to_dict())
+
+    def test_updated_at_on_save(self):
+        original_updated_at = self.basemodel.updated_at
+        time.sleep(1)
+        self.basemodel.save()
+        self.assertNotEqual(original_updated_at, self.basemodel.updated_at)
 
 
 if __name__ == "__main__":
