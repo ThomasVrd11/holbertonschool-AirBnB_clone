@@ -21,6 +21,29 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(city.state_id, str)
         self.assertIsInstance(city.name, str)
 
+    def setUp(self):
+        self.city = City()
+
+    def test_state_id_default(self):
+        self.assertEqual(self.city.state_id, "")
+
+    def test_name_assignment(self):
+        self.city.name = "Paris"
+        self.assertEqual(self.city.name, "Paris")
+
+    def test_to_dict_contains_correct_keys(self):
+        city = City()
+        city.name = "Sartrouville"
+        city.postal_code = "78500"
+        self.assertIn("postal_code", city.to_dict())
+        self.assertIn("name", city.to_dict())
+
+    def test_to_dict_contains_correct_values_for_attributes(self):
+        city = City()
+        city.name = "Sartrouville"
+        city.postal_code = "78500"
+        self.assertEqual(city.to_dict()["name"], "Sartrouville")
+        self.assertEqual(city.to_dict()["postal_code"], "78500")
 
 if __name__ == '__main__':
     unittest.main()
