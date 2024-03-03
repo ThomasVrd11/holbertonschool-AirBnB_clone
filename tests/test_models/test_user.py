@@ -25,7 +25,7 @@ class Test_user(unittest.TestCase):
         self.assertIsInstance(user.last_name, str)
         # * test if the attributes are empty strings
 
-        if __name__ == '__main__':
-            unittest.main()
-            # * It will run the test if the module is run directly
-            # * It will not run if the module is imported
+if __name__ == '__main__':
+    unittest.main()
+    # * It will run the test if the module is run directly
+    # * It will not run if the module is imported
