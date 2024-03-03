@@ -96,8 +96,10 @@ class TestBaseModel(unittest.TestCase):
         self.basemodel.save()
         with open("file.json", "r") as f:
             objs = json.load(f)
-        self.assertIn(self.basemodel.__class__.__name__ + "." + self.basemodel.id, objs)
-        obj_data = objs[self.basemodel.__class__.__name__ + "." + self.basemodel.id]
+        self.assertIn(self.basemodel.__class__.__name__ + "." +
+                      self.basemodel.id, objs)
+        obj_data = objs[self.basemodel.__class__.__name__ + "." +
+                        self.basemodel.id]
         new_instance = BaseModel(**obj_data)
         self.assertEqual(self.basemodel.to_dict(), new_instance.to_dict())
 
