@@ -17,7 +17,7 @@ what can be done with this console:
 Usage:
     - Run the console and type help to see the commands
     - Run the console and type <class name>.<command>(<parameters>)
-    - Run the console and type 
+    - Run the console and type
     <class name>.<command>(<id>, <attribute>, <value>)
     - Run the console and type <class name>.<command>(<id>)
     - Run the console and type <class name>.<command>()
@@ -26,7 +26,7 @@ Usage:
     - Run the console and type <command>(<id>, <attribute>, <value>)
     - Run the console and type <command>(<class name>)
     - Run the console and type <command>(<class name>, <id>)
-    - Run the console and type 
+    - Run the console and type
     <command>(<class name>, <id>, <attribute>, <value>)
     - Run the console and type <command>(<class name>, <id>, <attribute>)
 """
