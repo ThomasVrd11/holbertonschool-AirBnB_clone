@@ -18,6 +18,16 @@ class FileStorage:
         self.__file_path = "file.json"
         self.__objects = {}
 
+        self.__class_map = {
+        'BaseModel': BaseModel,
+        'User': User,
+        'State': State,
+        'City': City,
+        'Amenity': Amenity,
+        'Place': Place,
+        'Review': Review,
+        }
+
     def all(self):
         """returns all objects"""
         return self.__objects
@@ -37,10 +47,13 @@ class FileStorage:
     def reload(self):
         """Deserialize the JSON file to __objects"""
         if os.path.exists(self.__file_path):
-            with open(self.__file_path, "r") as file:
-                obj_dicts = json.load(file)
-                for obj in obj_dicts.values():
+            try:
+                with open(self.__file_path, "r") as file:
+                    obj_dicts = json.load(file)
+                for obj_id, obj in obj_dicts.items():
                     class_name = obj["__class__"]
-                    del obj["__class__"]
-                    """Dynamically create an instance of class and add it"""
-                    self.new(eval(class_name)(**obj))
+                    if class_name in self.__class_map:
+                        cls = self.__class_map[class_name]
+                        self.new(cls(**obj))
+            except Exception as excep:
+                print("Error loading JSON file: {}".format(excep))
