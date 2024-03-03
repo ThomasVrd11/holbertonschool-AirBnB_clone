@@ -50,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
     It is used to create line-oriented command interpreters.
     We can use this class to create a simple command line interpreter.
     """
-    promptdefou = '(hbnb) '
+    prompt = '(hbnb) '
     class_listing = ["BaseModel", "User", "City",
                      "Amenity", "Place", "State", "Review"]
 
