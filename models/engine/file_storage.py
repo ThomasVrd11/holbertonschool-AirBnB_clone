@@ -19,13 +19,13 @@ class FileStorage:
         self.__objects = {}
 
         self.__class_map = {
-        'BaseModel': BaseModel,
-        'User': User,
-        'State': State,
-        'City': City,
-        'Amenity': Amenity,
-        'Place': Place,
-        'Review': Review,
+            'BaseModel': BaseModel,
+            'User': User,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review,
         }
 
     def all(self):
