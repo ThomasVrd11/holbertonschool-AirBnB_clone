@@ -94,12 +94,15 @@ It then creates an instance of FileStorage, storing it in the global variable `s
 
         Reload storage
 The `storage.reload()` call attempts to deserialize objects from the JSON file (if it exists) back into the application's memory.
+Check if the class name is in it's class_map dict, to prevent loading unexisting classes.
 Restoring the state of the application's data from a previous session, making the data immediately available upon startup.
 
 ########        Execution + how it works          ########
 
 This script serves as the entry point for setting up the storage system of the application. It ensures that whenever the models package is imported, a storage system is instantiated and prepared to handle data persistence tasks.
-Upon the importation of the models package, the FileStorage class is imported from the file_storage module, and an instance of this class is created and assigned to the variable `storage`. This instance becomes the central point for managing data serialization and deserialization throughout the application.
-The call to `storage.reload()` checks for the existence of a previously saved JSON file (`file.json`) and loads its content back into the application. This process transforms the JSON file's data back into Python objects, effectively restoring the state of the application's data as it was in the last session.
+Upon the importation of the models package, the FileStorage class is imported from the file_storage module, and an instance of this class is created and assigned to the variable `storage`. This instance becomes the central point for
+managing data serialization and deserialization throughout the application.
+The call to `storage.reload()` checks for the existence of a previously saved JSON file (`file.json`) and loads its content back into the application. This process transforms the JSON file's data back into Python objects, effectively
+restoring the state of the application's data as it was in the last session.
 
 #################################################################################
