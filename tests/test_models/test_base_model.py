@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+"""Defines the tests for the BaseModel class."""
+
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
