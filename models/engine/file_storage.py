@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+""" This module initializes the models package.
+    It creates a FileStorage object called storage and calls reload() method
+    on it to deserialize the JSON file to __objects.
+    """
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
