@@ -17,12 +17,14 @@ class TestReview(unittest.TestCase):
 
     def test_initialization(self):
         """tests if attributes are correct types
-        It tests if the id, created_at and updated_at are of the type string"""
+        It tests if the id, created_at and updated_at are
+        of the type string"""
         review = Review()
         self.assertIsInstance(review.place_id, str)
         self.assertIsInstance(review.user_id, str)
         self.assertIsInstance(review.text, str)
-        """It tests if the id, created_at and updated_at are of the type datetime"""
+        """It tests if the id, created_at and updated_at are
+        of the type datetime"""
 
 
 if __name__ == '__main__':
