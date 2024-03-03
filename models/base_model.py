@@ -22,7 +22,11 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
-                    value = datetime.datetime.fromisoformat(value)
+                    try:
+                        value = datetime.datetime.fromisoformat(value)
+                    except ValueError:
+                        raise ValueError("Invalid date format for {}: {}"
+                                         .format(key, value))
                 if key == '__class__':
                     continue
                 setattr(self, key, value)
@@ -34,7 +38,7 @@ class BaseModel:
 
     def __str__(self):
         """String representation of the instance"""
-        return ("[{}] ({}) {}".format(__class__.__name__,
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
 
     def save(self):
