@@ -32,16 +32,16 @@ Usage:
 """
 
 from models import storage
-import cmd
-import models
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.review import Review
 from models.amenity import Amenity
 from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
 from models.user import User
+from models.place import Place
+from models.state import State
+import cmd
+import models
 
 
 class HBNBCommand(cmd.Cmd):
@@ -51,6 +51,7 @@ class HBNBCommand(cmd.Cmd):
     We can use this class to create a simple command line interpreter.
     """
     prompt = '(hbnb) '
+    """unfortunately i couldnt name the prompt as i wanted"""
     class_listing = ["BaseModel", "User", "City",
                      "Amenity", "Place", "State", "Review"]
 
@@ -61,12 +62,12 @@ class HBNBCommand(cmd.Cmd):
         apparently forced to call it precmd by cmd module
         it is called before the command is executed"""
         if '.' in arg and '(' in arg and ')' in arg:
-            clas_s = arg.split('.')
-            function = clas_s[1].split('(')
+            classn = arg.split('.')
+            function = classn[1].split('(')
             param = function[1].split(')')
-            if clas_s[0] in HBNBCommand.class_listing and \
+            if classn[0] in HBNBCommand.class_listing and \
                function[0] in HBNBCommand.funct_listing:
-                arg = function[0] + ' ' + clas_s[0] + ' ' + param[0]
+                arg = function[0] + ' ' + classn[0] + ' ' + param[0]
         return arg
 
     def do_quit(self, arg):
