@@ -92,7 +92,10 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         self.storage.reload()
         reloaded_obj = self.storage.all()["BaseModel.{}".format(my_obj.id)]
-        self.assertEqual(reloaded_obj.my_number, 43, "Object was not updated correctly in storage.")
+        self.assertEqual(
+            reloaded_obj.my_number,
+            43,
+            "Object was not updated correctly in storage.")
 
     def test_custom_attribute_serialization_deserialization(self):
         my_state = State(name="Hawaii")
@@ -100,8 +103,22 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         self.storage.reload()
         reloaded_state = self.storage.all()[f"State.{my_state.id}"]
-        self.assertEqual(reloaded_state.name, "Hawaii", "State name attribute didn't match after reload.")
+        self.assertEqual(
+            reloaded_state.name,
+            "Hawaii",
+            "State name attribute didn't match after reload.")
 
+    def test_instanciates(self):
+        """Test that FileStorage instanciates correctly."""
+        self.assertTrue(isinstance(self.storage, storage.FileStorage))
+
+    def test_objects(self):
+        """Test that objects is a dictionary."""
+        self.assertTrue(isinstance(self.storage.all(), dict))
+
+    def test_file_path(self):
+        """Test that file_path is a string."""
+        self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
 
 
 if __name__ == "__main__":
