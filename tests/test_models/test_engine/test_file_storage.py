@@ -56,7 +56,8 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         self.storage.reload()
         all_objs = self.storage.all()
-        self.assertIn("{}.{}".format(type(new_obj).__name__, new_obj.id), all_objs)
+        self.assertIn("{}.{}".format(type(new_obj).__name__, new_obj.id),
+                      all_objs)
 
     def test_reload_persistence(self):
         new_obj = BaseModel()
@@ -73,10 +74,9 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(user_instance)
         self.storage.save()
         self.storage.reload()
-        self.assertIn("BaseModel.{}".format(base_model_instance.id), self.storage.all())
+        self.assertIn("BaseModel.{}".format(base_model_instance.id),
+                      self.storage.all())
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
-
-
 
 
 if __name__ == "__main__":

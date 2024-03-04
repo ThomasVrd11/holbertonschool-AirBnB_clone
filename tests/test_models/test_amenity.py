@@ -42,5 +42,6 @@ class TestAmenity(unittest.TestCase):
         amenity.name = "Tony"
         self.assertEqual(amenity.to_dict()["name"], "Tony")
 
+
 if __name__ == '__main__':
     unittest.main()

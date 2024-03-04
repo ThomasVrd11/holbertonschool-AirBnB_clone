@@ -45,5 +45,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(city.to_dict()["name"], "Sartrouville")
         self.assertEqual(city.to_dict()["postal_code"], "78500")
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -61,8 +61,6 @@ class Test_state(unittest.TestCase):
         self.assertEqual(reloaded_state.name, "Nevada")
 
 
-
-
 if __name__ == '__main__':
     unittest.main()
     # * It will run the test if the module is run directly
