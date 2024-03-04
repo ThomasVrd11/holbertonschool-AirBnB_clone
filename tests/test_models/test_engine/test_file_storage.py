@@ -16,9 +16,9 @@ class TestFileStorage(unittest.TestCase):
 
     def tearDown(self):
         """Clean up any resources allocated during the test."""
+        if os.path.exists(self.storage._FileStorage__file_path):
+            os.remove(self.storage._FileStorage__file_path)
         del self.storage
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
 
     def test_instanciates(self):
         """Tests that FileStorage correctly instantiates."""
