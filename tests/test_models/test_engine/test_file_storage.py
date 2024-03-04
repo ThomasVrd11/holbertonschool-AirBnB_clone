@@ -2,6 +2,7 @@
 """Defines the FileStorage class. """
 
 import unittest
+import models
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -111,6 +112,10 @@ class TestFileStorage(unittest.TestCase):
             reloaded_state.name,
             "Hawaii",
             "State name attribute didn't match after reload.")
+
+    def test_instanciates(self):
+        """Test that FileStorage instanciates correctly."""
+        self.assertTrue(isinstance(self.storage, models.FileStorage))
 
     def test_file_path(self):
         """test that file_path is a string."""
