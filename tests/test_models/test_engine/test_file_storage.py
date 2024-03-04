@@ -2,8 +2,6 @@
 """Defines the FileStorage class. """
 
 import os
-import json
-from tkinter import N
 import models
 import unittest
 from models.city import City
@@ -12,11 +10,15 @@ from models.place import Place
 from models.state import State
 from models.review import Review
 from models.amenity import Amenity
-from datetime import datetime
+from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
 class TestFileStorage(unittest.TestCase):
+
+    def setUp(self):
+        self.storage = storage
+        self.file_path = self.storage._FileStorage__file_path
 
     def test_FileStorage_instanciation(self):
         self.assertEqual(type(FileStorage()), FileStorage)
@@ -28,6 +30,20 @@ class TestFileStorage(unittest.TestCase):
 
     def test_all(self):
         self.assertEqual(dict, type(models.storage.all()))
+        new_obj = BaseModel()
+        self.storage.new(new_obj)
+        self.storage.save()
+        all_objs = self.storage.all()
+        self.assertIsInstance(all_objs, dict)
+        self.assertIn(
+            "{}.{}".format(
+                new_obj.__class__.__name__,
+                new_obj.id),
+            all_objs)
+        self.assertTrue(isinstance(self.storage.all(), dict))
+        self.assertEqual(
+            self.storage.all(),
+            self.storage._FileStorage__objects)
 
     def test_all_with_arg(self):
         with self.assertRaises(TypeError):
@@ -141,6 +157,28 @@ class TestFileStorage(unittest.TestCase):
     def test_reload_with_arg(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
+
+    def test_objects(self):
+        """Test that objects is a dictionary."""
+        self.assertTrue(isinstance(self.storage._FileStorage__objects, dict))
+
+    def test_file_path(self):
+        """test that file_path is a string."""
+        self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
+
+    def test_overwrite_existing_object(self):
+        my_obj = BaseModel()
+        my_obj.my_number = 42
+        self.storage.new(my_obj)
+        self.storage.save()
+        my_obj.my_number = 43
+        self.storage.save()
+        self.storage.reload()
+        reloaded_obj = self.storage.all()["BaseModel.{}".format(my_obj.id)]
+        self.assertEqual(
+            reloaded_obj.my_number,
+            43,
+            "Object was not updated correctly in storage.")
 
 if __name__ == "__main__":
     unittest.main()
