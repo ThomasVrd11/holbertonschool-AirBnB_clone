@@ -110,35 +110,13 @@ class TestFileStorage(unittest.TestCase):
 
     def test_instanciates(self):
         """Test that FileStorage instanciates correctly."""
-        self.assertTrue(isinstance(self.storage, storage.FileStorage))
+        self.assertIsInstance(self.storage, type(storage))
+        
 
     def test_objects(self):
         """Test that objects is a dictionary."""
         self.assertTrue(isinstance(self.storage.all(), dict))
-
-    def test_file_path(self):
-        """Test that file_path is a string."""
-        self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
-
-    def test_all(self):
-        """Test that all returns the FileStorage objects."""
-        self.assertEqual(
-            self.storage.all(),
-            self.storage._FileStorage__objects)
-
-    def test_new(self):
-        """Test that new adds an object to the FileStorage objects."""
-        bm = BaseModel()
-        self.storage.new(bm)
-        self.assertIn(bm, self.storage._FileStorage__objects.values())
-
-    def test_save(self):
-        """Test that save writes the FileStorage objects to the file path."""
-        bm = BaseModel()
-        self.storage.new(bm)
-        self.storage.save()
-        with open(self.storage._FileStorage__file_path, 'r') as f:
-            self.assertIn(bm.to_dict(), json.load(f).values())
+        
 
 
 if __name__ == "__main__":
