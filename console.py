@@ -102,23 +102,23 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance based
         on the class name and id.
         """
-        list_arg = arg.split(" ")
+        arglist = arg.split(" ")
 
         if len(arg) == 0:
             print("** class name missing **")
             return
 
-        elif list_arg[0] not in HBNBCommand.class_listing:
+        elif arglist[0] not in HBNBCommand.class_listing:
             print("** class doesn't exist **")
             return
 
-        elif len(list_arg) < 2:
+        elif len(arglist) < 2:
             print("** instance id missing **")
             return
 
         else:
             dict_all_obj = storage.all()
-            string = f'{list_arg[0]}.{list_arg[1]}'
+            string = f'{arglist[0]}.{arglist[1]}'
 
             if string not in dict_all_obj.keys():
                 print("** no instance found **")
@@ -130,23 +130,23 @@ class HBNBCommand(cmd.Cmd):
         """Deletes an instance based on the class name and id and save
         into the JSON file)
         """
-        list_arg = arg.split(" ")
+        arglist = arg.split(" ")
 
         if len(arg) == 0:
             print("** class name missing **")
             return
 
-        elif list_arg[0] not in HBNBCommand.class_listing:
+        elif arglist[0] not in HBNBCommand.class_listing:
             print("** class doesn't exist **")
             return
 
-        elif len(list_arg) < 2:
+        elif len(arglist) < 2:
             print("** instance id missing **")
             return
 
         else:
             dict_all_obj = storage.all()
-            string = f'{list_arg[0]}.{list_arg[1]}'
+            string = f'{arglist[0]}.{arglist[1]}'
 
             if string not in dict_all_obj.keys():
                 print("** no instance found **")
@@ -181,36 +181,36 @@ class HBNBCommand(cmd.Cmd):
         or updating attribute
         It can be used to update an instance of a class
         """
-        list_arg = arg.split(" ")
+        arglist = arg.split(" ")
 
         if len(arg) == 0:
             print("** class name missing **")
 
-        elif list_arg[0] not in HBNBCommand.class_listing:
+        elif arglist[0] not in HBNBCommand.class_listing:
             print("** class doesn't exist **")
             return
 
-        elif len(list_arg) == 1:
+        elif len(arglist) == 1:
             print("** instance id missing **")
             return
 
         else:
             dict_all_obj = storage.all()
-            string = f'{list_arg[0]}.{list_arg[1]}'
+            string = f'{arglist[0]}.{arglist[1]}'
 
             if string not in dict_all_obj.keys():
                 print("** no instance found **")
 
-            elif len(list_arg) == 2:
+            elif len(arglist) == 2:
                 print("** attribute name missing **")
                 return
 
-            elif len(list_arg) == 3:
+            elif len(arglist) == 3:
                 print("** value missing **")
                 return
 
             else:
-                setattr(dict_all_obj[string], list_arg[2], list_arg[3])
+                setattr(dict_all_obj[string], arglist[2], arglist[3])
                 storage.save()
 
 
