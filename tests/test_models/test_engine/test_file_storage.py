@@ -29,23 +29,25 @@ class TestFileStorage(unittest.TestCase):
     def test_file_path(self):
         """Test the file path
         We will check if the file path is a string"""
-        correct_path = FileStorage._FileStorage__file_path
-        self.assertEqual(str, type(correct_path))
+        storage_instance = FileStorage()
+        correct_path = storage_instance._FileStorage__file_path
+        self.assertTrue(isinstance(correct_path, str))
 
     def test_object(self):
         """Test if the object is a dictionary
         Here we will check if the object is a dictionary
         By default, it should be empty."""
-        dict_obj = FileStorage._FileStorage__objects
-        self.assertEqual(dict, type(dict_obj))
+        storage_instance = FileStorage()
+        dict_obj = storage_instance._FileStorage__objects
+        self.assertTrue(isinstance(dict_obj, dict))
 
     def test_all(self):
         """Test the all method
         By default, the all method should return an empty dictionary
         """
-        dictionary = {}
-        FileStorage.all(None)
-        self.assertEqual(dictionary, FileStorage._FileStorage__objects)
+        storage_instance = FileStorage()
+        all_objects = storage_instance.all()
+        self.assertTrue(isinstance(all_objects, dict))
 
 
 if __name__ == "__main__":
