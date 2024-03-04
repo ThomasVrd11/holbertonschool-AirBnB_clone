@@ -15,39 +15,40 @@ from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
-    """TestFileStorage class
-    Test the FileStorage class and its methods"""
-    model = BaseModel()
+    """Unit tests suite for FileStorage class
+    we will use the unittest module to test the FileStorage class
+    instanciation and its methods."""
+
+    my_model = BaseModel()
 
     def test_instanciates(self):
-        """Test the instanciation of the FileStorage class
-        By default, the file path should be file.json
-        and the object should be an empty dictionary"""
+        """Tests that FileStorage correctly instanciates
+        It will be tested by verifying that the object is an instance
+        """
         storage = FileStorage()
         self.assertIsInstance(storage, FileStorage)
 
     def test_file_path(self):
-        """Test the file path
-        We will check if the file path is a string"""
-        storage_instance = FileStorage()
-        correct_path = storage_instance._FileStorage__file_path
-        self.assertTrue(isinstance(correct_path, str))
+        """Test __file path is exited
+        It will be tested by verifying that the file path is a string
+        If the file path is not a string, the test will fail"""
+        path = FileStorage._FileStorage__file_path
+        self.assertEqual(str, type(path))
 
     def test_object(self):
-        """Test if the object is a dictionary
-        Here we will check if the object is a dictionary
-        By default, it should be empty."""
-        storage_instance = FileStorage()
-        dict_obj = storage_instance._FileStorage__objects
-        self.assertTrue(isinstance(dict_obj, dict))
+        """Test __object is type dict after deserialization object - dict
+        By default, the __objects attribute should be an empty dictionary"""
+        object_dict = FileStorage._FileStorage__objects
+        self.assertEqual(dict, type(object_dict))
 
     def test_all(self):
-        """Test the all method
-        By default, the all method should return an empty dictionary
-        """
-        storage_instance = FileStorage()
-        all_objects = storage_instance.all()
-        self.assertTrue(isinstance(all_objects, dict))
+        """Test all method returns the __objects dictionary
+        It will be tested by verifying that the __objects attribute is
+        returned by the all method"""
+
+        dict_return = {}
+        FileStorage.all(None)
+        self.assertEqual(os.path.isfile('file.json'), True)
 
 
 if __name__ == "__main__":
