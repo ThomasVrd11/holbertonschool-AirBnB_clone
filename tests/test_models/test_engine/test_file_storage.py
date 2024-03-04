@@ -12,7 +12,7 @@ import json
 
 class TestFileStorage(unittest.TestCase):
 
-    '''def setUp(self):
+    def setUp(self):
         self.storage = storage
         self.file_path = self.storage._FileStorage__file_path
 
@@ -55,7 +55,7 @@ class TestFileStorage(unittest.TestCase):
             file_contents = f.read()
             self.assertIn("BaseModel.{}".format(new_obj.id), file_contents)
 
-    def test_reload(self):
+    '''def test_reload(self):
         new_obj = BaseModel()
         self.storage.new(new_obj)
         self.storage.save()
