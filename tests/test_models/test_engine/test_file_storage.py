@@ -117,7 +117,10 @@ class TestFileStorage(unittest.TestCase):
         """Test that objects is a dictionary."""
         self.assertTrue(isinstance(self.storage.all(), dict))
         
-
+        
+    def test_file_path(self):
+        """Test that file_path is a string."""
+        self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
 
 if __name__ == "__main__":
     unittest.main()
