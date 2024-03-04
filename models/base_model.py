@@ -36,8 +36,7 @@ class BaseModel:
                                          .format(key, value))
                 if key != '__class__':
                     setattr(self, key, value)
-        else:
-            models.storage.new(self)
+        models.storage.new(self)
 
     def __str__(self):
         """String representation of the instance"""
