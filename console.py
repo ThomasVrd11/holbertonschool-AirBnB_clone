@@ -61,12 +61,12 @@ class HBNBCommand(cmd.Cmd):
         apparently forced to call it precmd by cmd module
         it is called before the command is executed"""
         if '.' in arg and '(' in arg and ')' in arg:
-            my_class = arg.split('.')
-            my_func = my_class[1].split('(')
-            param = my_func[1].split(')')
-            if my_class[0] in HBNBCommand.class_listing and \
-               my_func[0] in HBNBCommand.funct_listing:
-                arg = my_func[0] + ' ' + my_class[0] + ' ' + param[0]
+            clas_s = arg.split('.')
+            function = clas_s[1].split('(')
+            param = function[1].split(')')
+            if clas_s[0] in HBNBCommand.class_listing and \
+               function[0] in HBNBCommand.funct_listing:
+                arg = function[0] + ' ' + clas_s[0] + ' ' + param[0]
         return arg
 
     def do_quit(self, arg):
@@ -216,3 +216,5 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+
+"""coucou alfred"""
