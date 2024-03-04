@@ -8,7 +8,7 @@ from models.state import State
 from models import storage
 import os
 import json
-from models.engine.file_storage import FileStorage
+
 
 class TestFileStorage(unittest.TestCase):
 
@@ -144,6 +144,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         with open(self.storage._FileStorage__file_path, 'r') as f:
             self.assertIn(bm.to_dict(), json.load(f).values())
+
     def test_all_ter(self):
         """Test that all returns the dictionary of objects."""
         self.assertTrue(isinstance(self.storage.all(), dict))
