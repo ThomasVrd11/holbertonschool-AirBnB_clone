@@ -59,6 +59,19 @@ class TestFileStorage(unittest.TestCase):
         with open(self.file_path, 'r') as f:
             self.assertIn(new_obj.to_dict(), json.load(f).values())
 
+    def test_objects(self):
+        """Test that objects is a dictionary."""
+        self.assertTrue(isinstance(self.storage._FileStorage__objects, dict))
+    def test_all_bis(self):
+        """Test that all returns the FileStorage objects."""
+        self.assertEqual(
+            self.storage.all(),
+            self.storage._FileStorage__objects)
+
+    def test_file_path(self):
+        """test that file_path is a string."""
+        self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
+
     '''def test_reload(self):
         new_obj = BaseModel()
         self.storage.new(new_obj)
@@ -120,18 +133,7 @@ class TestFileStorage(unittest.TestCase):
         """Test that FileStorage instanciates correctly."""
         self.assertTrue(isinstance(self.storage, FileStorage))
 
-    def test_file_path(self):
-        """test that file_path is a string."""
-        self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
 
-    def test_objects(self):
-        """Test that objects is a dictionary."""
-        self.assertTrue(isinstance(self.storage._FileStorage__objects, dict))
-    def test_all_bis(self):
-        """Test that all returns the FileStorage objects."""
-        self.assertEqual(
-            self.storage.all(),
-            self.storage._FileStorage__objects)
 
         '''
 
