@@ -8,7 +8,7 @@ from models.state import State
 from models import storage
 import os
 import json
-
+from models.engine.file_storage import FileStorage
 
 class TestFileStorage(unittest.TestCase):
 
@@ -110,7 +110,9 @@ class TestFileStorage(unittest.TestCase):
 
     def test_instanciates(self):
         """Test that FileStorage instanciates correctly."""
-        self.assertIsInstance(self.storage, type(storage))
+        storage_instance = FileStorage()
+        self.assertTrue(isinstance(storage_instance, FileStorage))
+        
         
 
     def test_objects(self):
