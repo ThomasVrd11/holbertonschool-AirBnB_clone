@@ -2,6 +2,7 @@
 """Defines the FileStorage class. """
 
 import unittest
+import models
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -37,6 +38,9 @@ class TestFileStorage(unittest.TestCase):
                 new_obj.id),
             all_objs)
         self.assertTrue(isinstance(self.storage.all(), dict))
+        self.assertEqual(
+            self.storage.all(),
+            self.storage._FileStorage__objects)
 
     def test_new(self):
         new_obj = BaseModel()
@@ -62,15 +66,14 @@ class TestFileStorage(unittest.TestCase):
     def test_objects(self):
         """Test that objects is a dictionary."""
         self.assertTrue(isinstance(self.storage._FileStorage__objects, dict))
-    def test_all_bis(self):
-        """Test that all returns the FileStorage objects."""
-        self.assertEqual(
-            self.storage.all(),
-            self.storage._FileStorage__objects)
 
     def test_file_path(self):
         """test that file_path is a string."""
         self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
+
+    def test_instanciates(self):
+        """Test that FileStorage instanciates correctly."""
+        self.assertTrue(isinstance(self.storage, models.FileStorage))
 
     '''def test_reload(self):
         new_obj = BaseModel()
@@ -129,9 +132,6 @@ class TestFileStorage(unittest.TestCase):
             "Hawaii",
             "State name attribute didn't match after reload.")
 
-    def test_instanciates(self):
-        """Test that FileStorage instanciates correctly."""
-        self.assertTrue(isinstance(self.storage, FileStorage))
 
 
 
