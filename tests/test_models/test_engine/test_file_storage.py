@@ -69,7 +69,6 @@ class TestFileStorage(unittest.TestCase):
     def test_saving_and_reloading_multiple_objects(self):
         base_model_instance = BaseModel()
         user_instance = User(email="user@example.com", password="password")
-        print(user_instance.to_dict())
         self.storage.new(base_model_instance)
         self.storage.new(user_instance)
         self.storage.save()
