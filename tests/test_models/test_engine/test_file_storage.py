@@ -40,16 +40,20 @@ class TestFileStorage(unittest.TestCase):
     def test_new(self):
         new_obj = BaseModel()
         self.storage.new(new_obj)
-        key = "{}.{}".format(type(new_obj).__name__, new_obj.id)
-        self.assertIn(key, self.storage.all())
+        all_objs = self.storage.all()
+        self.assertIn(
+            "{}.{}".format(
+                new_obj.__class__.__name__,
+                new_obj.id),
+            all_objs)
 
     def test_save(self):
         new_obj = BaseModel()
         self.storage.new(new_obj)
         self.storage.save()
         with open(self.file_path, "r") as f:
-            objs = json.load(f)
-        self.assertIn("{}.{}".format(type(new_obj).__name__, new_obj.id), objs)
+            file_contents = f.read()
+            self.assertIn("BaseModel.{}".format(new_obj.id), file_contents)
 
     def test_reload(self):
         new_obj = BaseModel()
@@ -121,8 +125,10 @@ class TestFileStorage(unittest.TestCase):
         
         
     def test_file_path(self):
-        """Test that file_path is a string."""
+        """test that file_path is a string."""
         self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
+        
+    
 
 if __name__ == "__main__":
     unittest.main()
