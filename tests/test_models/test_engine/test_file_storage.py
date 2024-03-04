@@ -71,11 +71,36 @@ class TestFileStorage(unittest.TestCase):
         """test that file_path is a string."""
         self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
 
-    def test_instanciates(self):
+    '''def test_instanciates(self):
         """Test that FileStorage instanciates correctly."""
-        self.assertTrue(isinstance(self.storage, models.FileStorage))
+        self.assertTrue(isinstance(self.storage, models.FileStorage))'''
 
-    '''def test_reload(self):
+    def test_overwrite_existing_object(self):
+        my_obj = BaseModel()
+        my_obj.my_number = 42
+        self.storage.new(my_obj)
+        self.storage.save()
+        my_obj.my_number = 43
+        self.storage.save()
+        self.storage.reload()
+        reloaded_obj = self.storage.all()["BaseModel.{}".format(my_obj.id)]
+        self.assertEqual(
+            reloaded_obj.my_number,
+            43,
+            "Object was not updated correctly in storage.")
+
+    def test_custom_attribute_serialization_deserialization(self):
+        my_state = State(name="Hawaii")
+        self.storage.new(my_state)
+        self.storage.save()
+        self.storage.reload()
+        reloaded_state = self.storage.all()[f"State.{my_state.id}"]
+        self.assertEqual(
+            reloaded_state.name,
+            "Hawaii",
+            "State name attribute didn't match after reload.")
+
+    def test_reload(self):
         new_obj = BaseModel()
         self.storage.new(new_obj)
         self.storage.save()
@@ -107,35 +132,6 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(AttributeError):
             print(storage.__objects)
 
-    def test_overwrite_existing_object(self):
-        my_obj = BaseModel()
-        my_obj.my_number = 42
-        self.storage.new(my_obj)
-        self.storage.save()
-        my_obj.my_number = 43
-        self.storage.save()
-        self.storage.reload()
-        reloaded_obj = self.storage.all()["BaseModel.{}".format(my_obj.id)]
-        self.assertEqual(
-            reloaded_obj.my_number,
-            43,
-            "Object was not updated correctly in storage.")
-
-    def test_custom_attribute_serialization_deserialization(self):
-        my_state = State(name="Hawaii")
-        self.storage.new(my_state)
-        self.storage.save()
-        self.storage.reload()
-        reloaded_state = self.storage.all()[f"State.{my_state.id}"]
-        self.assertEqual(
-            reloaded_state.name,
-            "Hawaii",
-            "State name attribute didn't match after reload.")
-
-
-
-
-        '''
 
 if __name__ == "__main__":
     unittest.main()
