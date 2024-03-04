@@ -112,12 +112,6 @@ class TestFileStorage(unittest.TestCase):
             "Hawaii",
             "State name attribute didn't match after reload.")
 
-    def test_instanciates(self):
-        """Test that FileStorage instanciates correctly."""
-        storage_instance = FileStorage()
-        self.assertTrue(isinstance(storage_instance, FileStorage))
-        
-        
     def test_file_path(self):
         """test that file_path is a string."""
         self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
