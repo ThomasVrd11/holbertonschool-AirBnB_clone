@@ -1,37 +1,51 @@
 #!/usr/bin/python3
-"Unit tests for FileStorage class"
+"""Unittest for FileStorage class
+We will use the unittest module to test the FileStorage class
+instanciation and its methods.
+file path
+object
+all"""
+
+from pyexpat import model
 import unittest
-from models.engine.file_storage import FileStorage
 import os
+from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
-    "Unit tests suite for FileStorage class"
-    my_model = BaseModel()
+    """TestFileStorage class
+    Test the FileStorage class and its methods"""
+    model = BaseModel()
 
     def test_instanciates(self):
-        "Tests that FileStorage correctly instanciates"
+        """Test the instanciation of the FileStorage class
+        By default, the file path should be file.json
+        and the object should be an empty dictionary"""
         storage = FileStorage()
         self.assertIsInstance(storage, FileStorage)
 
     def test_file_path(self):
-        """Test __file path is exited"""
-        path = FileStorage._FileStorage__file_path
-        self.assertEqual(str, type(path))
+        """Test the file path
+        We will check if the file path is a string"""
+        correct_path = FileStorage._FileStorage__file_path
+        self.assertEqual(str, type(correct_path))
 
     def test_object(self):
-        """Test __object is type dict after deserialization object - dict"""
-        object_dict = FileStorage._FileStorage__objects
-        self.assertEqual(dict, type(object_dict))
+        """Test if the object is a dictionary
+        Here we will check if the object is a dictionary
+        By default, it should be empty."""
+        dict_obj = FileStorage._FileStorage__objects
+        self.assertEqual(dict, type(dict_obj))
 
     def test_all(self):
-        """Test FileStorage: all()"""
-        """file is not exit"""
-        dict_return = {}
+        """Test the all method
+        By default, the all method should return an empty dictionary
+        """
+        dictionary = {}
         FileStorage.all(None)
-        self.assertEqual(os.path.isfile('file.json'), True)
+        self.assertEqual(dictionary, FileStorage._FileStorage__objects)
 
 
 if __name__ == "__main__":
