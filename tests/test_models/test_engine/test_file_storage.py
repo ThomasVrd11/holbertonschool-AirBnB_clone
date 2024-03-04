@@ -4,6 +4,7 @@
 import unittest
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
 from models import storage
 import os
 import json
@@ -77,6 +78,30 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("BaseModel.{}".format(base_model_instance.id),
                       self.storage.all())
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
+
+    def test_objects_encapsulation(self):
+        with self.assertRaises(AttributeError):
+            print(storage.__objects)
+
+    def test_overwrite_existing_object(self):
+        my_obj = BaseModel()
+        my_obj.my_number = 42
+        self.storage.new(my_obj)
+        self.storage.save()
+        my_obj.my_number = 43
+        self.storage.save()
+        self.storage.reload()
+        reloaded_obj = self.storage.all()["BaseModel.{}".format(my_obj.id)]
+        self.assertEqual(reloaded_obj.my_number, 43, "Object was not updated correctly in storage.")
+
+    def test_custom_attribute_serialization_deserialization(self):
+        my_state = State(name="Hawaii")
+        self.storage.new(my_state)
+        self.storage.save()
+        self.storage.reload()
+        reloaded_state = self.storage.all()[f"State.{my_state.id}"]
+        self.assertEqual(reloaded_state.name, "Hawaii", "State name attribute didn't match after reload.")
+
 
 
 if __name__ == "__main__":
