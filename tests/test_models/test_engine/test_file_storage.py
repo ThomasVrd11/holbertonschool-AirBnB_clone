@@ -36,6 +36,7 @@ class TestFileStorage(unittest.TestCase):
                 new_obj.__class__.__name__,
                 new_obj.id),
             all_objs)
+        self.assertTrue(isinstance(self.storage.all(), dict))
 
     def test_new(self):
         new_obj = BaseModel()
@@ -46,6 +47,7 @@ class TestFileStorage(unittest.TestCase):
                 new_obj.__class__.__name__,
                 new_obj.id),
             all_objs)
+        self.assertIn(new_obj, self.storage._FileStorage__objects.values())
 
     def test_save(self):
         new_obj = BaseModel()
@@ -54,6 +56,8 @@ class TestFileStorage(unittest.TestCase):
         with open(self.file_path, "r") as f:
             file_contents = f.read()
             self.assertIn("BaseModel.{}".format(new_obj.id), file_contents)
+        with open(self.file_path, 'r') as f:
+            self.assertIn(new_obj.to_dict(), json.load(f).values())
 
     '''def test_reload(self):
         new_obj = BaseModel()
@@ -129,23 +133,7 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             self.storage._FileStorage__objects)
 
-    def test_new_bis(self):
-        """Test that new adds an object to the FileStorage objects."""
-        bm = BaseModel()
-        self.storage.new(bm)
-        self.assertIn(bm, self.storage._FileStorage__objects.values())
-
-    def test_save_bis(self):
-        """Test that save writes the FileStorage objects to the file path."""
-        bm = BaseModel()
-        self.storage.new(bm)
-        self.storage.save()
-        with open(self.storage._FileStorage__file_path, 'r') as f:
-            self.assertIn(bm.to_dict(), json.load(f).values())
-
-    def test_all_ter(self):
-        """Test that all returns the dictionary of objects."""
-        self.assertTrue(isinstance(self.storage.all(), dict))'''
+        '''
 
 if __name__ == "__main__":
     unittest.main()
