@@ -4,11 +4,22 @@ import unittest
 from models.state import State
 from models.base_model import BaseModel
 import models
+import os
 
 
 class Test_state(unittest.TestCase):
     """Test the instantation of the State class
     It will also test the class attributes"""
+
+    def setUp(self):
+        if os.path.exists("file.json"):
+            os.remove("file.json")
+
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
 
     def test_instantation(self):
         state = State()
@@ -43,9 +54,10 @@ class Test_state(unittest.TestCase):
     def test_save_and_reload_state(self):
         my_state = State(name="Nevada")
         my_state.save()
+        state_id = my_state.id
         del my_state
         models.storage.reload()
-        reloaded_state = models.storage.all()["State.{}".format(my_state.id)]
+        reloaded_state = models.storage.all()["State.{}".format(state_id)]
         self.assertEqual(reloaded_state.name, "Nevada")
 
 
