@@ -16,6 +16,7 @@ class TestFileStorage(unittest.TestCase):
     def setUp(self):
         """Create a new instance of FileStorage for each test."""
         self.storage = FileStorage()
+        self.file_path = self.storage._FileStorage__file_path
 
     def tearDown(self):
         """Clean up any resources allocated during the test."""
@@ -75,14 +76,44 @@ class TestFileStorage(unittest.TestCase):
             "State name attribute didn't match after reload.")
 
     def test_reload(self):
-        """test that the reload method deserializes the JSON file."""
+        """Test that the reload method deserializes the JSON file."""
         new_obj = BaseModel()
         self.storage.new(new_obj)
         self.storage.save()
+        self.storage._FileStorage__objects = {}
         self.storage.reload()
-        all_objs = self.storage.all()
-        self.assertIn("{}.{}".format(type(new_obj).__name__, new_obj.id),
-                      all_objs)
+        key = "BaseModel.{}".format(new_obj.id)
+        self.assertIn(
+            key,
+            self.storage.all(),
+            "Object not loaded into storage after reload.")
+
+    def test_reload_no_file(self):
+        """Test that the reload method does nothing when the file doesn't exist."""
+        if os.path.exists(self.file_path):
+            os.remove(self.file_path)
+        try:
+            self.storage.reload()
+        except Exception as e:
+            self.fail(f"reload() raised an exception when no file exists: {e}")
+
+    def test_reload_empty_file(self):
+        """Test that the reload method does nothing when the file is empty."""
+        open(self.file_path, 'w').close()
+        try:
+            self.storage.reload()
+        except Exception as e:
+            self.fail(f"reload() raised an exception with an empty file: {e}")
+
+    def test_new(self):
+        """Test that a new object is correctly added to the storage."""
+        new_obj = User()
+        self.storage.new(new_obj)
+        key = "User.{}".format(new_obj.id)
+        self.assertIn(
+            key,
+            self.storage.all(),
+            "New object not found in storage.")
 
     def test_reload_persistence(self):
         """test that the reload method is persistent."""
