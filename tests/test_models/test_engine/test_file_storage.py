@@ -7,6 +7,7 @@ from models.engine.file_storage import FileStorage
 from models.user import User
 from models.state import State
 from models.base_model import BaseModel
+import json
 
 
 class TestFileStorage(unittest.TestCase):
@@ -47,6 +48,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(os.path.isfile(self.storage._FileStorage__file_path))
 
     def test_overwrite_existing_object(self):
+        """test that the save method overwrites an existing object."""
         my_obj = BaseModel()
         my_obj.my_number = 42
         self.storage.new(my_obj)
@@ -61,6 +63,7 @@ class TestFileStorage(unittest.TestCase):
             "Object was not updated correctly in storage.")
 
     def test_custom_attribute_serialization_deserialization(self):
+        """test that custom attributes are serialized and deserialized."""
         my_state = State(name="Hawaii")
         self.storage.new(my_state)
         self.storage.save()
@@ -72,6 +75,7 @@ class TestFileStorage(unittest.TestCase):
             "State name attribute didn't match after reload.")
 
     def test_reload(self):
+        """test that the reload method deserializes the JSON file."""
         new_obj = BaseModel()
         self.storage.new(new_obj)
         self.storage.save()
@@ -81,6 +85,7 @@ class TestFileStorage(unittest.TestCase):
                       all_objs)
 
     def test_reload_persistence(self):
+        """test that the reload method is persistent."""
         new_obj = BaseModel()
         self.storage.new(new_obj)
         self.storage.save()
@@ -89,6 +94,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("BaseModel.{}".format(new_obj.id), all_objs)
 
     def test_saving_and_reloading_multiple_objects(self):
+        """test that the storage system can handle multiple objects."""
         base_model_instance = BaseModel()
         user_instance = User(email="user@example.com", password="password")
         self.storage.new(base_model_instance)
@@ -100,9 +106,53 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
 
     def test_objects_encapsulation(self):
-
+        """test that __objects is encapsulated."""
         with self.assertRaises(AttributeError):
             print(self.storage.__objects)
+
+    def test_serialization_integrity(self):
+        """test that the serialization of an object is consistent."""
+        user = User()
+        user.name = "Test User"
+        self.storage.new(user)
+        self.storage.save()
+        with open(self.storage._FileStorage__file_path, 'r') as file:
+            data = json.load(file)
+        key = "User.{}".format(user.id)
+        self.assertIn(key, data)
+        self.assertEqual(
+            data[key]['name'],
+            user.name,
+            "User name did not match after serialization.")
+
+    def test_storage_consistency_after_save_and_reload(self):
+        """test that the storage system is consistent after save and reload."""
+        user = User()
+        self.storage.new(user)
+        self.storage.save()
+        self.storage.reload()
+        key = "User.{}".format(user.id)
+        self.assertIn(
+            key,
+            self.storage.all(),
+            "User object was not found after reload.")
+
+    def test_new_different_objects(self):
+        """test that the storage system can handle different objects."""
+        user = User()
+        state = State()
+        self.storage.new(user)
+        self.storage.new(state)
+        key_user = "User.{}".format(user.id)
+        key_state = "State.{}".format(state.id)
+        self.assertIn(
+            key_user,
+            self.storage.all(),
+            "User object was not found in storage.")
+        self.assertIn(
+            key_state,
+            self.storage.all(),
+            "State object was not found in storage.")
 
 
 if __name__ == "__main__":
