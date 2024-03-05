@@ -20,8 +20,10 @@ class TestFileStorage(unittest.TestCase):
 
     def tearDown(self):
         """Clean up any resources allocated during the test."""
-        if os.path.exists(self.storage._FileStorage__file_path):
-            os.remove(self.storage._FileStorage__file_path)
+        try:
+            os.remove(self.file_path)
+        except FileNotFoundError:
+            pass
         del self.storage
 
     def test_instanciates(self):
@@ -34,7 +36,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_object(self):
         """Test that __objects is a dictionary."""
-        self.assertTrue(isinstance(self.storage._FileStorage__objects, dict))
+        self.assertIsInstance(self.storage.all(), dict)
 
     def test_all(self):
         """Test that the all method returns a dictionary."""
