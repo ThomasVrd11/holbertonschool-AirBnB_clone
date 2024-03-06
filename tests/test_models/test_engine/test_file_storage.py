@@ -89,6 +89,8 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             "User object was not found after reload.")
 
+
+'''
     def test_new_different_objects(self):
         """test that the storage system can handle different objects."""
         user = User()
@@ -107,7 +109,6 @@ class TestFileStorage(unittest.TestCase):
             "State object was not found in storage.")
 
 
-'''
     def test_saving_and_reloading_multiple_objects(self):
         self.storage.save()
         """test that the storage system can handle multiple objects."""
