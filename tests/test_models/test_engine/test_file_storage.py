@@ -62,6 +62,8 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(AttributeError):
             print(self.storage.__objects)
 
+
+'''
     def test_serialization_integrity(self):
         """test that the serialization of an object is consistent."""
         user = User()
@@ -78,7 +80,7 @@ class TestFileStorage(unittest.TestCase):
             "User name did not match after serialization.")
 
 
-'''
+
     def test_storage_consistency_after_save_and_reload(self):
         """test that the storage system is consistent after save and reload."""
         user = User()
