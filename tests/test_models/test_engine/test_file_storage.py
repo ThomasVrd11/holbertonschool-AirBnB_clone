@@ -75,8 +75,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(key, data)
         self.assertEqual(
             data[key]['name'],
-            user.name,
-            "User name did not match after serialization.")
+            user.name)
 
 
 '''
