@@ -39,8 +39,6 @@ class TestFileStorage(unittest.TestCase):
         storage.all()
         self.assertEqual(os.path.isfile('file.json'), True)
 
-
-'''
     def test_new(self):
         """Test that a new object is correctly added to the storage."""
         new_obj = User()
@@ -51,6 +49,8 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             "New object not found in storage.")
 
+
+'''
     def test_reload_persistence(self):
         """test that the reload method is persistent."""
         new_obj = BaseModel()
