@@ -57,8 +57,6 @@ class TestFileStorage(unittest.TestCase):
         all_objs = self.storage.all()
         self.assertIn("BaseModel.{}".format(new_obj.id), all_objs)
 
-
-'''
     def test_saving_and_reloading_multiple_objects(self):
         self.storage.save()
         """test that the storage system can handle multiple objects."""
@@ -72,6 +70,8 @@ class TestFileStorage(unittest.TestCase):
                       self.storage.all())
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
 
+
+'''
 
     def test_objects_encapsulation(self):
         """test that __objects is encapsulated."""
