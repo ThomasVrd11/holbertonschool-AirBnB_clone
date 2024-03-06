@@ -62,8 +62,6 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(AttributeError):
             print(self.storage.__objects)
 
-
-'''
     def test_serialization_integrity(self):
         """test that the serialization of an object is consistent."""
         user = User()
@@ -91,7 +89,6 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             "User object was not found after reload.")
 
-
     def test_new_different_objects(self):
         """test that the storage system can handle different objects."""
         user = User()
@@ -109,6 +106,8 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             "State object was not found in storage.")
 
+
+'''
     def test_saving_and_reloading_multiple_objects(self):
         self.storage.save()
         """test that the storage system can handle multiple objects."""
