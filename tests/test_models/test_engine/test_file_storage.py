@@ -49,8 +49,6 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             "New object not found in storage.")
 
-
-'''
     def test_reload_persistence(self):
         """test that the reload method is persistent."""
         new_obj = BaseModel()
@@ -59,6 +57,8 @@ class TestFileStorage(unittest.TestCase):
         all_objs = self.storage.all()
         self.assertIn("BaseModel.{}".format(new_obj.id), all_objs)
 
+
+'''
     def test_saving_and_reloading_multiple_objects(self):
         self.storage.save()
         """test that the storage system can handle multiple objects."""
