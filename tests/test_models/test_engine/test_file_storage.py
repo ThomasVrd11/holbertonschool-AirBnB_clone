@@ -187,6 +187,11 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             "State object was not found in storage.")
 
+    def test_fake_file_storage(self):
+        """Test that the file storage is not created when testing."""
+        self.assertIsInstance(self.storage, FileStorage)
+        self.assertFalse(os.path.exists(self.file_path))
+
 
 if __name__ == "__main__":
     unittest.main()
