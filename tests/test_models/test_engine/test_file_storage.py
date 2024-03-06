@@ -72,14 +72,13 @@ class TestFileStorage(unittest.TestCase):
             data = json.load(file)
         key = "User.{}".format(user.id)
         self.assertIn(key, data)
-
-
-'''
         self.assertEqual(
             data[key]['name'],
             user.name,
             "User name did not match after serialization.")
 
+
+'''
 
 
 
