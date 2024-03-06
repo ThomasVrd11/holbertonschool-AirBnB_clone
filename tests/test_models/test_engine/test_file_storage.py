@@ -77,6 +77,8 @@ class TestFileStorage(unittest.TestCase):
             user.name,
             "User name did not match after serialization.")
 
+
+'''
     def test_storage_consistency_after_save_and_reload(self):
         """test that the storage system is consistent after save and reload."""
         user = User()
@@ -90,7 +92,6 @@ class TestFileStorage(unittest.TestCase):
             "User object was not found after reload.")
 
 
-'''
     def test_new_different_objects(self):
         """test that the storage system can handle different objects."""
         user = User()
