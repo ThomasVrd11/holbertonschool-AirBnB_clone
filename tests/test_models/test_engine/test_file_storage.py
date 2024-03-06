@@ -64,11 +64,12 @@ class TestFileStorage(unittest.TestCase):
 
     def test_serialization_integrity(self):
         """test that the serialization of an object is consistent."""
+        neo_storage = FileStorage()
         user = User()
         user.name = "Test User"
-        self.storage.new(user)
-        self.storage.save()
-        with open(self.storage._FileStorage__file_path, 'r') as file:
+        neo_storage.new(user)
+        neo_storage.save()
+        with open(neo_storage._FileStorage__file_path, 'r') as file:
             data = json.load(file)
         key = "User.{}".format(user.id)
         self.assertIn(key, data)
@@ -79,8 +80,6 @@ class TestFileStorage(unittest.TestCase):
 
 
 '''
-
-
 
     def test_storage_consistency_after_save_and_reload(self):
         """test that the storage system is consistent after save and reload."""
