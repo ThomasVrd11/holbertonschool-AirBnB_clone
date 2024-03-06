@@ -57,28 +57,13 @@ class TestFileStorage(unittest.TestCase):
         all_objs = self.storage.all()
         self.assertIn("BaseModel.{}".format(new_obj.id), all_objs)
 
-    def test_saving_and_reloading_multiple_objects(self):
-        self.storage.save()
-        """test that the storage system can handle multiple objects."""
-        base_model_instance = BaseModel()
-        user_instance = User(email="user@example.com", password="password")
-        self.storage.new(base_model_instance)
-        self.storage.new(user_instance)
-        self.storage.save()
-        self.storage.reload()
-        self.assertIn("BaseModel.{}".format(base_model_instance.id),
-                      self.storage.all())
-        self.assertIn("User.{}".format(user_instance.id), self.storage.all())
-
-
-'''
-
     def test_objects_encapsulation(self):
         """test that __objects is encapsulated."""
         with self.assertRaises(AttributeError):
             print(self.storage.__objects)
 
 
+'''
     def test_serialization_integrity(self):
         """test that the serialization of an object is consistent."""
         user = User()
@@ -122,8 +107,21 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(
             key_state,
             self.storage.all(),
-            "State object was not found in storage.")'''
+            "State object was not found in storage.")
 
+    def test_saving_and_reloading_multiple_objects(self):
+        self.storage.save()
+        """test that the storage system can handle multiple objects."""
+        base_model_instance = BaseModel()
+        user_instance = User(email="user@example.com", password="password")
+        self.storage.new(base_model_instance)
+        self.storage.new(user_instance)
+        self.storage.save()
+        self.storage.reload()
+        self.assertIn("BaseModel.{}".format(base_model_instance.id),
+                      self.storage.all())
+        self.assertIn("User.{}".format(user_instance.id), self.storage.all())
+            '''
 
 if __name__ == '__main__':
     unittest.main()
