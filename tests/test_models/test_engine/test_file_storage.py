@@ -34,6 +34,7 @@ class TestFileStorage(unittest.TestCase):
     def test_all(self):
         """Test that the all method returns a dictionary."""
         self.obj_dict = {}
+        storage.all()
         self.assertEqual(os.path.isfile('file.json'), True)
 
 if __name__ == '__main__':
