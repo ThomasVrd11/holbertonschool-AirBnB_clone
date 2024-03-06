@@ -62,8 +62,6 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(AttributeError):
             print(self.storage.__objects)
 
-
-'''
     def test_serialization_integrity(self):
         """test that the serialization of an object is consistent."""
         user = User()
@@ -74,10 +72,14 @@ class TestFileStorage(unittest.TestCase):
             data = json.load(file)
         key = "User.{}".format(user.id)
         self.assertIn(key, data)
+
+
+'''
         self.assertEqual(
             data[key]['name'],
             user.name,
             "User name did not match after serialization.")
+
 
 
 
