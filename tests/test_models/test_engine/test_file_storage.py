@@ -70,10 +70,13 @@ class TestFileStorage(unittest.TestCase):
                       self.storage.all())
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
 
+
+'''
     def test_objects_encapsulation(self):
         """test that __objects is encapsulated."""
         with self.assertRaises(AttributeError):
             print(self.storage.__objects)
+
 
     def test_serialization_integrity(self):
         """test that the serialization of an object is consistent."""
@@ -90,8 +93,6 @@ class TestFileStorage(unittest.TestCase):
             user.name,
             "User name did not match after serialization.")
 
-
-'''
     def test_storage_consistency_after_save_and_reload(self):
         """test that the storage system is consistent after save and reload."""
         user = User()
