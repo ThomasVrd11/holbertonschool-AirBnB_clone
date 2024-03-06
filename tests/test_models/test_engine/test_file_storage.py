@@ -32,13 +32,13 @@ class TestFileStorage(unittest.TestCase):
 
     def test_file_path(self):
         """Test that the file path is a string."""
-        self.assertTrue(isinstance(self.storage._FileStorage__file_path, str))
+        self.assertEqual(type(self.file_path), str)
 
     def test_object(self):
         """Test that __objects is a dictionary."""
-        self.assertIsInstance(self.storage.all(), dict)
+        self.assertEqual(type(self.storage.all()), dict)
 
     def test_all(self):
         """Test that the all method returns a dictionary."""
         all_objects = self.storage.all()
-        self.assertTrue(isinstance(all_objects, dict))
+        self.assertEqual(type(all_objects), dict)
