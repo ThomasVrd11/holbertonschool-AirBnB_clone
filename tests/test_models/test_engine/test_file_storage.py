@@ -67,6 +67,7 @@ class TestFileStorage(unittest.TestCase):
         neo_storage = FileStorage()
         user = User()
         user.name = "Test User"
+        user.save()
         neo_storage.new(user)
         neo_storage.save()
         with open(neo_storage._FileStorage__file_path, 'r') as file:
