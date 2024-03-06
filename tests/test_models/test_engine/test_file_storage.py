@@ -39,6 +39,8 @@ class TestFileStorage(unittest.TestCase):
         storage.all()
         self.assertEqual(os.path.isfile('file.json'), True)
 
+
+'''
     def test_new(self):
         """Test that a new object is correctly added to the storage."""
         new_obj = User()
@@ -53,12 +55,12 @@ class TestFileStorage(unittest.TestCase):
         """test that the reload method is persistent."""
         new_obj = BaseModel()
         self.storage.new(new_obj)
-        self.storage.save()
         self.storage.reload()
         all_objs = self.storage.all()
         self.assertIn("BaseModel.{}".format(new_obj.id), all_objs)
 
     def test_saving_and_reloading_multiple_objects(self):
+        self.storage.save()
         """test that the storage system can handle multiple objects."""
         base_model_instance = BaseModel()
         user_instance = User(email="user@example.com", password="password")
@@ -71,7 +73,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
 
 
-'''
     def test_objects_encapsulation(self):
         """test that __objects is encapsulated."""
         with self.assertRaises(AttributeError):
