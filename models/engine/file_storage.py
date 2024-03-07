@@ -62,5 +62,5 @@ class FileStorage:
             except Exception as excep:
                 print("Error loading JSON file: {}".format(excep))
 
-    def getpath(self):
-        return self.__file_path
+    def getpath():
+        return "file.json"
