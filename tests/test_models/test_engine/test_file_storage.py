@@ -114,9 +114,6 @@ class TestFileStorage(unittest.TestCase):
             self.storage.all(),
             "State object was not found in storage.")
 
-
-'''
-
     def test_storage_consistency_after_save_and_reload(self):
         """test that the storage system is consistent after save and reload."""
         user = User()
@@ -128,9 +125,6 @@ class TestFileStorage(unittest.TestCase):
             key,
             self.storage.all(),
             "User object was not found after reload.")
-
-
-
 
     def test_saving_and_reloading_multiple_objects(self):
         self.storage.save()
@@ -144,7 +138,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("BaseModel.{}".format(base_model_instance.id),
                       self.storage.all())
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
-            '''
+
 
 if __name__ == '__main__':
     unittest.main()
