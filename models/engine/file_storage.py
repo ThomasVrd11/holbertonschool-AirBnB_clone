@@ -16,6 +16,7 @@ import os
 
 class FileStorage:
     """Handles storage of all models in JSON format"""
+    __file_path = ""
 
     def __init__(self):
         """Initialize the storage system"""
@@ -61,6 +62,3 @@ class FileStorage:
                         self.new(cls(**obj))
             except Exception as excep:
                 print("Error loading JSON file: {}".format(excep))
-
-    def getpath():
-        return "file.json"
