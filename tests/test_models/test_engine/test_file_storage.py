@@ -71,13 +71,12 @@ class TestFileStorage(unittest.TestCase):
 
     def test_serialization_integrity(self):
         """test that the serialization of an object is consistent."""
-        neo_storage = FileStorage()
         user = User()
         user.name = "Test User"
         user.save()
-        neo_storage.new(user)
-        neo_storage.save()
-        with open(neo_storage._FileStorage__file_path, 'r') as file:
+        self.storage.new(user)
+        self.storage.save()
+        with open(self.storage_path, 'r') as file:
             data = json.load(file)
         key = "User.{}".format(user.id)
         self.assertIn(key, data)
