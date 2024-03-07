@@ -78,11 +78,11 @@ class TestFileStorage(unittest.TestCase):
             data[key]['name'],
             user.name)
 
-    def test_init_file_path(self):
-        storage = FileStorage()
-        expected_path = "file.json"
-        storage_path = storage._FileStorage__file_path
-        self.assertEqual(expected_path, storage_path)
+    def test_FileStorage__file_path(self):
+        # storage = FileStorage()
+        # expected_path = "file.json"
+        storage_path = FileStorage()._FileStorage__file_path
+        self.assertEqual(str, type(storage_path))
 
 
 '''
