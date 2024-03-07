@@ -88,7 +88,14 @@ class TestFileStorage(unittest.TestCase):
     def test_FileStorage__file_path(self):
         # storage = FileStorage()
         self.assertEqual(str, type(self.storage_path))
-        # self.assertTrue(os.path.isfile(self.storage_path))
+        self.assertTrue(os.path.isfile(self.storage_path))
+
+    def test_file_path_value(self):
+        """Test that the file path is correctly set to the expected value."""
+        expected_path = "file.json"  # or the expected full path if applicable
+        actual_path = FileStorage._FileStorage__file_path
+        self.assertEqual(actual_path, expected_path,
+                         "File path does not match the expected value.")
 
     def test_new_different_objects(self):
         """test that the storage system can handle different objects."""
