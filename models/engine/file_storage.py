@@ -16,7 +16,7 @@ import os
 
 class FileStorage:
     """Handles storage of all models in JSON format"""
-    __file_path = ""
+    __file_path = "file.json"
 
     def __init__(self):
         """Initialize the storage system"""
