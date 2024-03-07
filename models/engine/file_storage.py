@@ -55,5 +55,7 @@ class FileStorage:
                     if class_name in self.__class_map:
                         cls = self.__class_map[class_name]
                         self.new(cls(**obj))
-            except Exception as excep:
-                print("Error loading JSON file: {}".format(excep))
+            except FileNotFoundError:
+                pass
+            except json.decoder.JSONDecodeError:
+                pass
