@@ -139,6 +139,19 @@ class TestFileStorage(unittest.TestCase):
                       self.storage.all())
         self.assertIn("User.{}".format(user_instance.id), self.storage.all())
 
+    def test_reload(self):
+        """Test that the reload method deserializes the JSON file."""
+        new_obj = BaseModel()
+        self.storage.new(new_obj)
+        self.storage.save()
+        self.storage._FileStorage__objects = {}
+        self.storage.reload()
+        key = "BaseModel.{}".format(new_obj.id)
+        self.assertIn(
+            key,
+            self.storage.all(),
+            "Object not loaded into storage after reload.")
+
 
 if __name__ == '__main__':
     unittest.main()
