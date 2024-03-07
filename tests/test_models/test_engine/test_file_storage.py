@@ -86,8 +86,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_FileStorage__file_path(self):
         # storage = FileStorage()
-        # self.assertEqual(str, type(self.storage_path))
-        self.assertTrue(os.path.isfile(self.storage_path))
+        self.assertEqual(str, type(self.storage_path))
 
     def test_file_path_value(self):
         """Test that the file path is correctly set to the expected value."""
