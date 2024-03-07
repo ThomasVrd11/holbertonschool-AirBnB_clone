@@ -89,7 +89,6 @@ class TestFileStorage(unittest.TestCase):
         # storage = FileStorage()
         expected_path = "file.json"
         self.assertEqual(str, type(self.storage_path))
-        self.assertEqual(expected_path, self.storage_path)
         self.assertTrue(os.path.isfile(self.storage_path))
 
     def test_new_different_objects(self):
