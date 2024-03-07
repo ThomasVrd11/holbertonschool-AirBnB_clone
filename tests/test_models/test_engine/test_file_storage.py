@@ -43,7 +43,8 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         self.obj_dict = {}
         storage.all()
-        self.assertEqual(os.path.isfile('file.json'), True)
+        storage.save()
+        self.assertEqual(os.path.isfile(self.storage_path), True)
 
     def test_new(self):
         """Test that a new object is correctly added to the storage."""
@@ -89,6 +90,7 @@ class TestFileStorage(unittest.TestCase):
         expected_path = "file.json"
         self.assertEqual(str, type(self.storage_path))
         self.assertEqual(expected_path, self.storage_path)
+        self.assertTrue(os.path.isfile(self.storage_path))
 
     def test_new_different_objects(self):
         """test that the storage system can handle different objects."""
