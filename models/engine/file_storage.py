@@ -16,21 +16,17 @@ import os
 
 class FileStorage:
     """Handles storage of all models in JSON format"""
-
-    def __init__(self):
-        """Initialize the storage system"""
-        self.__file_path = "file.json"
-        self.__objects = {}
-
-        self.__class_map = {
-            'BaseModel': BaseModel,
-            'User': User,
-            'State': State,
-            'City': City,
-            'Amenity': Amenity,
-            'Place': Place,
-            'Review': Review,
-        }
+    __file_path = "file.json"
+    __objects = {}
+    __class_map = {
+        'BaseModel': BaseModel,
+        'User': User,
+        'State': State,
+        'City': City,
+        'Amenity': Amenity,
+        'Place': Place,
+        'Review': Review,
+    }
 
     def all(self):
         """returns all objects"""
@@ -59,5 +55,7 @@ class FileStorage:
                     if class_name in self.__class_map:
                         cls = self.__class_map[class_name]
                         self.new(cls(**obj))
-            except Exception as excep:
-                print("Error loading JSON file: {}".format(excep))
+            except FileNotFoundError:
+                pass
+            except json.decoder.JSONDecodeError:
+                pass
